@@ -21,9 +21,10 @@
     "isolatedModules": true,
     "moduleResolution": "node",
     "incremental": true,
+    // TODO: FIX CREATING 2 tsconfigs. 
     "paths": {
-      "entities": ["../shared/entities"],
-      "entities/*": ["../shared/entities/*"]
+      "entities": ["shared/entities"],
+      "entities/*": ["shared/entities/*"]
     }
   },
   "include": [
