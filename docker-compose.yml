@@ -1,11 +1,38 @@
 version: "3.7"
 
-services:
+volumes:
+  psg:
 
-  test:
+services:
+  boilerplate-db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=boilerplate
+    volumes:
+      - psg:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+
+  boilerplate-next-frontend:
     build:
       dockerfile: client/Dockerfile
       context: ./
     ports:
       - "3000:3000"
-    image: test
+    image: boilerplate-next-frontend
+
+  boilerplate-next-backend:
+    build:
+      dockerfile: server/Dockerfile
+      context: ./
+    ports:
+      - "3001:3001"
+    image: boilerplate-next-backend
+    # command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    depends_on:
+      - boilerplate-db
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@boilerplate-db:5432/boilerplate

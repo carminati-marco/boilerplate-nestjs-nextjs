@@ -1,9 +1,9 @@
-FROM node:lts as dependencies
+FROM node:17-alpine as dependencies
 WORKDIR /my-project
 COPY client/package.json client/yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-FROM node:lts as builder
+FROM node:17-alpine as builder
 WORKDIR /my-project
 COPY client/ ./
 COPY shared ./shared
@@ -12,7 +12,7 @@ COPY --from=dependencies /my-project/node_modules ./node_modules
 
 RUN yarn build
 
-FROM node:lts as runner
+FROM node:17-alpine as runner
 WORKDIR /my-project
 ENV NODE_ENV production
 # If you are using a custom next.config.js file, uncomment this line.
