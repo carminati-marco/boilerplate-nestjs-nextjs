@@ -31,8 +31,9 @@ services:
     ports:
       - "3001:3001"
     image: boilerplate-next-backend
-    # command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    # command: sh -c 'while !</dev/tcp/db/5432; do sleep 1; done; yarn start'
     depends_on:
       - boilerplate-db
+      
     environment:
       - DATABASE_URL=postgresql://admin:admin@boilerplate-db:5432/boilerplate

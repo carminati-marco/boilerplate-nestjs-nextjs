@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import { getSession } from 'next-auth/react'; // TODO: TO IMPLEMENT JWT
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'http://localhost:3001';
 
 const ApiClient = () => {
   const defaultOptions = {
