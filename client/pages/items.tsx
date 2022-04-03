@@ -2,8 +2,8 @@ import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { ItemType } from 'entities/item';
 import ApiClient from '../lib/axios';
+import MediaControlCard from '../components/card'
 import Div from '@mui/material/Divider';
-
 
 export default function Home(): React.ReactElement {
   const [itemList, setItemList] = useState<Array<ItemType>>([]);
@@ -37,18 +37,12 @@ export default function Home(): React.ReactElement {
       </Head>
       <div className="wrapper">
         <div>
-          {itemList.map((el: ItemType, index: number) => {
+          {itemList.map((item: ItemType, index: number) => {
+            console.log(item)
             if (itemList.length === 0) {
               return <div></div>;
             } else {
-              return (
-                <Div key={index} className="result result__element">
-                  <div className="result__row--number">{el.id}</div>
-                  <div className="result__row--border"></div>
-                  <div className="result__row--title">{el.title}</div>
-                  <div className="result__row--title">{el.content}</div>
-                </Div>
-              );
+              return <MediaControlCard key={index} item={item} />;
             }
           })}
         </div>
